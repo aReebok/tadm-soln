@@ -149,12 +149,37 @@ treenode* maximum(treenode* root) {
     return root;
 }
 
-treenode* successor(treenode* root, int key) {
-return nullptr;
+treenode* inorderSuccessor(treenode* root, int key) {
+    
+    treenode* successor = nullptr;
+    while(root) {
+        if (root->val <= key) {
+            root = root->right;
+        } else {
+            successor = root;
+            root = root->left;
+        }    
+    }
+    return successor;
 }
 
 
-treenode* successoriter(treenode* root, int key) { 
+treenode* inorderPredecessor(treenode* root, int key) {
+    if (searchiter(root, key) == nullptr) return nullptr;
+    treenode* predecessor = nullptr;
+    while(root) {
+        if (key <= root->val) {
+            root = root->left;
+        } else {
+            predecessor = root;
+            root = root->right;
+        }    
+    }
+    return predecessor;
+}
+
+
+treenode* inorderSuccessorIter(treenode* root, int key) { 
     /**
      * Sucessor of the node is either it's parent, or the left-most node in the right subtree.
      */
@@ -224,14 +249,24 @@ void runTests() {
     printTestResult("Maximum of tree", maximum(root)->val == 80);
     cout << "========================================================================\n";
 
-    printTestResult("Successor of 20 is 30", successoriter(root, 20) && successoriter(root, 20)->val == 30, successoriter(root, 20)->val);
-    printTestResult("Successor of 30 is 40", successoriter(root, 30) && successoriter(root, 30)->val == 40, successoriter(root, 30)->val);
-    printTestResult("Successor of 40 is 50", successoriter(root, 40) && successoriter(root, 40)->val == 50, successoriter(root, 20)->val);
-    printTestResult("Successor of 50 is 60", successoriter(root, 50) && successoriter(root, 50)->val == 60, successoriter(root, 20)->val);
-    printTestResult("Successor of 60 is 70", successoriter(root, 60) && successoriter(root, 60)->val == 70, successoriter(root, 20)->val);
-    printTestResult("Successor of 70 is 80", successoriter(root, 70) && successoriter(root, 70)->val == 80, successoriter(root, 20)->val);
-    printTestResult("Successor of 80 is NULL", successoriter(root, 80) == nullptr, successoriter(root, 80)->val);
-    printTestResult("Successor of non-existent 100 is NULL", successoriter(root, 100) == nullptr, successoriter(root,100)->val);
+    printTestResult("Successor of 20 is 30", inorderSuccessor(root, 20) && inorderSuccessor(root, 20)->val == 30, inorderSuccessor(root, 20)->val);
+    printTestResult("Successor of 30 is 40", inorderSuccessor(root, 30) && inorderSuccessor(root, 30)->val == 40, inorderSuccessor(root, 30)->val);
+    printTestResult("Successor of 40 is 50", inorderSuccessor(root, 40) && inorderSuccessor(root, 40)->val == 50, inorderSuccessor(root, 20)->val);
+    printTestResult("Successor of 50 is 60", inorderSuccessor(root, 50) && inorderSuccessor(root, 50)->val == 60, inorderSuccessor(root, 20)->val);
+    printTestResult("Successor of 60 is 70", inorderSuccessor(root, 60) && inorderSuccessor(root, 60)->val == 70, inorderSuccessor(root, 20)->val);
+    printTestResult("Successor of 70 is 80", inorderSuccessor(root, 70) && inorderSuccessor(root, 70)->val == 80, inorderSuccessor(root, 20)->val);
+    printTestResult("Successor of 80 is NULL", inorderSuccessor(root, 80) == nullptr);
+    printTestResult("Successor of non-existent 100 is NULL", inorderSuccessor(root, 100) == nullptr);
+
+    // Predecessor tests
+    printTestResult("Predecessor of 80 is 70", inorderPredecessor(root, 80) && inorderPredecessor(root, 80)->val == 70, inorderPredecessor(root, 80)->val);
+    printTestResult("Predecessor of 70 is 60", inorderPredecessor(root, 70) && inorderPredecessor(root, 70)->val == 60, inorderPredecessor(root, 70)->val);
+    printTestResult("Predecessor of 60 is 50", inorderPredecessor(root, 60) && inorderPredecessor(root, 60)->val == 50, inorderPredecessor(root, 60)->val);
+    printTestResult("Predecessor of 50 is 40", inorderPredecessor(root, 50) && inorderPredecessor(root, 50)->val == 40, inorderPredecessor(root, 50)->val);
+    printTestResult("Predecessor of 40 is 30", inorderPredecessor(root, 40) && inorderPredecessor(root, 40)->val == 30, inorderPredecessor(root, 40)->val);
+    printTestResult("Predecessor of 30 is 20", inorderPredecessor(root, 30) && inorderPredecessor(root, 30)->val == 20, inorderPredecessor(root, 30)->val);
+    printTestResult("Predecessor of 20 is NULL", inorderPredecessor(root, 20) == nullptr);
+    printTestResult("Predecessor of non-existent 100 is NULL", inorderPredecessor(root, 100) == nullptr, inorderPredecessor(root, 100)->val);
 
     cout << "========================================================================\n";
 

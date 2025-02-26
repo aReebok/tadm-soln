@@ -130,11 +130,6 @@ treenode* removeiter(treenode* root, int key) {
     return root;
 }
 
-// treenode* successor(treenode* root, int key) {
-//     return nullptr;
-// }
-
-
 treenode* minimum(treenode* root) {
     if (!root) return nullptr;
     while(root->left)
@@ -150,7 +145,6 @@ treenode* maximum(treenode* root) {
 }
 
 treenode* inorderSuccessor(treenode* root, int key) {
-    
     treenode* successor = nullptr;
     while(root) {
         if (root->val <= key) {
@@ -158,7 +152,7 @@ treenode* inorderSuccessor(treenode* root, int key) {
         } else {
             successor = root;
             root = root->left;
-        }    
+        }
     }
     return successor;
 }
@@ -293,8 +287,6 @@ void runTests() {
 
     cout << "========================================================================\n";
 }
-
-
 
 int main() {
     runTests();

@@ -8,6 +8,8 @@ using namespace std;
  *  2. Delete(k,T): delete the kth smallest element from T
  *  3. Member(x,T): return true iff x in T
  *
+ * For this problem, we'd have to implenent an AVL tree, which is not too simple
+ * Perhaps after a couple more chapters, I will revisit this topic
  */
 
 struct T {
